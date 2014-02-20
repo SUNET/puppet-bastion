@@ -15,7 +15,7 @@ done
 
 for p in <%= @fixperms_check_part.join(" ") %>; do
   # Remove SUID/GUID on files not matching exclude list
-  for file in $(find $p -xdev -perm +0600 -type f -print); do
+  for file in $(find $p -xdev -perm +6000 -type f -print); do
     if ! test $EXCLUDE_SUID_INDEX[$file]; then
       chmod -s $file
     fi
