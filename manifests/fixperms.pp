@@ -1,4 +1,6 @@
 class bastion::fixperms {
+  $fixperms_paranoia = $bastion::fixperms_paranoia
+  $fixperms_check_part = $bastion::fixperms_check_part
 
   $script = "/etc/cron.daily/fixperms.sh"
 
@@ -14,5 +16,4 @@ class bastion::fixperms {
     require      => File[$script],
     subscribe    => File[$script],
   }
-  
 }
