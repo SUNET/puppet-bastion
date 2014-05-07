@@ -12,16 +12,14 @@ for i in "${EXCLUDE_SUIDS[@]}"; do
   EXCLUDE_SUID_INDEX[$i]=1
 done
 
-for p in <%= @fixperms_check_part.join(" ") %>; do
-  # Remove SUID/GUID on files not matching exclude list
-  for file in $(find $p -xdev -perm +6000 -type f -print); do
-    if ! test "${EXCLUDE_SUID_INDEX[$file]}"; then
-      chmod -s $file
-    fi
-  done
-  
-  # Remove world writable files
-  for entry in $(find $p -xdev \( -perm -0002 -a ! -perm 1000 \) \( -type f -o -type d \) -print); do
-    chmod o-w $entry
-  done
+# Remove SUID/GUID on files not matching exclude list
+for file in $(find <%= @fixperms_check_part.join(" ") %> -xdev -perm +6000 -type f -print); do
+  if ! test "${EXCLUDE_SUID_INDEX[$file]}"; then
+    chmod -s $file
+  fi
+done
+
+# Remove world writable files
+for entry in $(find <%= @fixperms_check_part.join(" ") %> -xdev \( -perm -0002 -a ! -perm 1000 \) \( -type f -o -type d \) -print); do
+  chmod o-w $entry
 done
