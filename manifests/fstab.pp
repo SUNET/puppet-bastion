@@ -60,7 +60,7 @@ class bastion::fstab {
     }
   }
 
-  define set-mountpoint-option($mount, $option) {
+  define set_mountpoint_option($mount, $option) {
     augeas{ "fstab-$mount-$option":
       context => "/files/etc/fstab/*[file = '$mount'][count(opt[. = '$option']) = 0]",
       changes => [
