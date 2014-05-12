@@ -28,7 +28,7 @@ done
 
 # Remove world writable files
 for entry in $(find <%= @fixperms_check_part.join(" ") %> -xdev \( -perm -0002 -a ! -perm 1000 \) \( -type f -o -type d \) -print); do
-  if ! test "${EXCLUDE_WRITABLE_INDEX[$file]}"; then
+  if ! test "${EXCLUDE_WRITABLE_INDEX[$entry]}"; then
     chmod o-w $entry
   fi
 done
