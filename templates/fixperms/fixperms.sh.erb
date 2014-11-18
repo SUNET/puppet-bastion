@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MYNAME="bastion-fixperms"
-EXCLUDE_WRITABLE=(/tmp /var/tmp)
+EXCLUDE_WRITABLE=(/tmp /var/tmp /var/mail /var/cache/scriptherder)
 <% if @fixperms_paranoia %>
 EXCLUDE_SUIDS=(/bin/su /sbin/unix_chkpwd /usr/bin/crontab /usr/bin/expiry /usr/bin/gpasswd /usr/bin/ssh-agent /usr/bin/sudo /usr/lib/openssh/ssh-keysign /usr/lib/pt_chown /usr/sbin/postdrop)
 <% else %>
