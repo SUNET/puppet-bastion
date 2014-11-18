@@ -34,6 +34,6 @@ for entry in $(find <%= @fixperms_check_part.join(" ") %> -xdev \( -perm -0002 -
   if ! test "${EXCLUDE_WRITABLE_INDEX[$entry]}"; then
     logger -p auth.notice -t "${MYNAME}" -i "Removing world-writeable permission from ${entry}"
     ls -ld "${entry}" | logger -p auth.notice -t "${MYNAME}" -i
-    chmod o-w "{$entry}"
+    chmod o-w "${entry}"
   fi
 done
