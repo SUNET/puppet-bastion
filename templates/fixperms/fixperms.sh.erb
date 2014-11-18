@@ -1,5 +1,6 @@
 #!/bin/bash
 
+MYNAME="bastion-fixperms"
 EXCLUDE_WRITABLE=(/tmp /var/tmp)
 <% if @fixperms_paranoia %>
 EXCLUDE_SUIDS=(/bin/su /sbin/unix_chkpwd /usr/bin/crontab /usr/bin/expiry /usr/bin/gpasswd /usr/bin/ssh-agent /usr/bin/sudo /usr/lib/openssh/ssh-keysign /usr/lib/pt_chown /usr/sbin/postdrop)
@@ -22,13 +23,17 @@ done
 # Remove SUID/GUID on files not matching exclude list
 for file in $(find <%= @fixperms_check_part.join(" ") %> -xdev -perm +6000 -type f -print); do
   if ! test "${EXCLUDE_SUID_INDEX[$file]}"; then
-    chmod -s $file
+    logger -p auth.notice -t "${MYNAME}" -i "Removing suid bit from ${file}"
+    ls -ld "${file}" | logger -p auth.notice -t "${MYNAME}" -i
+    chmod -s "${file}"
   fi
 done
 
 # Remove world writable files
 for entry in $(find <%= @fixperms_check_part.join(" ") %> -xdev \( -perm -0002 -a ! -perm 1000 \) \( -type f -o -type d \) -print); do
   if ! test "${EXCLUDE_WRITABLE_INDEX[$entry]}"; then
-    chmod o-w $entry
+    logger -p auth.notice -t "${MYNAME}" -i "Removing world-writeable permission from ${entry}"
+    ls -ld "${entry}" | logger -p auth.notice -t "${MYNAME}" -i
+    chmod o-w "{$entry}"
   fi
 done
