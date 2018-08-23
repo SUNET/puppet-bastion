@@ -10,7 +10,7 @@ class bastion::params {
   $sysctl_enable         = true
   $sysctl_restrict_dmesg = true
   $sysctl_net_hardening  = true
+  $fix_ipmi_enable       = true
+  $ipmi_lan_access_off   = true
   $rsyslog_enable        = false
-  $fix_ipmi_enable       = false
-  $ipmi_lan_access_off   = false
 }
