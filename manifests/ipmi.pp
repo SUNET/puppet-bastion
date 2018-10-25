@@ -1,5 +1,7 @@
 class bastion::ipmi {
-    if $::is_virtual == false {
+  # Temporarily disable IPMI configuration since it creates hanging processes
+  # on some hardware. John have a better version of this in the makings...
+    if false and $::is_virtual == false {
         package { 'ipmitool': } ->
         exec { 'modprobe ipmi_devintf; modprobe ipmi_si':
             unless => 'ipmitool lan print &> /dev/null'
