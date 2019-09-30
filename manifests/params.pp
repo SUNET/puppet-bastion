@@ -1,7 +1,7 @@
 class bastion::params {
   $fixperms_enable       = true
   $fixperms_paranoia     = false
-  $fixperms_check_part   = ["/"]
+  $fixperms_check_part   = ['/']
   $fstab_enable          = true
   $fstab_set_nodev       = true
   $fstab_set_nosuid      = true
