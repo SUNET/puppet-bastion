@@ -1,7 +1,7 @@
 class bastion::sysctl {
   if $bastion::sysctl_restrict_dmesg {
     file { '/etc/sysctl.d/20-bastion-restrict-dmesg.conf':
-      content => 'kernel.dmesg_restrict = 1\n',
+      content => "kernel.dmesg_restrict = 1\n",
       owner   => 'root',
       group   => 'root',
       mode    => '0644',
